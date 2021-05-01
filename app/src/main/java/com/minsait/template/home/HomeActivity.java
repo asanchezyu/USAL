@@ -1,30 +1,27 @@
-package com.minsait.template;
+package com.minsait.template.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.minsait.template.R;
+import com.minsait.template.api.RequestApi;
+import com.minsait.template.api.model.Element;
+import com.minsait.template.detail.DetailActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -148,93 +145,6 @@ public class HomeActivity extends AppCompatActivity {
 
         startActivity(intent);
 
-    }
-
-    public interface RequestApi {
-
-        @GET("/v2/beers")
-        Call<List<Element>> getCharacters();
-
-    }
-
-    public final class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ElementViewHolder> {
-
-        private List<Element> elements;
-
-        private ElementListener elementListener;
-
-        public ElementsAdapter(List<Element> elements, ElementListener elementListener) {
-            this.elements = elements;
-            this.elementListener = elementListener;
-        }
-
-        public void addElements(List<Element> newElements) {
-
-            if (elements != null) {
-                elements.clear();
-            }
-
-            elements.addAll(newElements);
-
-        }
-
-        @NonNull
-        @Override
-        public ElementViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ElementViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_data, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ElementViewHolder holder, int position) {
-            holder.bind(elements.get(position), elementListener);
-        }
-
-        @Override
-        public int getItemCount() {
-
-            return elements.size();
-
-        }
-
-        public final class ElementViewHolder extends RecyclerView.ViewHolder {
-
-            private TextView tvTitle;
-            private TextView tvSubtitle;
-            private CircleImageView civProfile;
-
-            public ElementViewHolder(@NonNull View itemView) {
-                super(itemView);
-                initView();
-            }
-
-            private void initView() {
-                tvTitle = itemView.findViewById(R.id.tvItemTitle);
-                tvSubtitle = itemView.findViewById(R.id.tvItemSubtitle);
-                civProfile = itemView.findViewById(R.id.civProfile);
-            }
-
-            public void bind(Element element, ElementListener elementListener) {
-                tvTitle.setText(element.name);
-                tvSubtitle.setText(element.description);
-                Picasso.get().load(element.imageUrl).placeholder(R.drawable.ipa_logo).into(civProfile);
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        if (elementListener != null) {
-                            elementListener.onClickElement(element);
-                        }
-
-                    }
-                });
-            }
-
-        }
-
-    }
-
-    public interface ElementListener {
-        void onClickElement(Element element);
     }
 
 }
