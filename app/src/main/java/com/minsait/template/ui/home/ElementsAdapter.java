@@ -1,4 +1,4 @@
-package com.minsait.template.home;
+package com.minsait.template.ui.home;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minsait.template.R;
-import com.minsait.template.api.model.Element;
+import com.minsait.template.data.model.Element;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

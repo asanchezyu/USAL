@@ -1,4 +1,4 @@
-package com.minsait.template.api.model;
+package com.minsait.template.data.model;
 
 import com.google.gson.annotations.SerializedName;
 

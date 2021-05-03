@@ -1,6 +1,6 @@
-package com.minsait.template.api;
+package com.minsait.template.data;
 
-import com.minsait.template.api.model.Element;
+import com.minsait.template.data.model.Element;
 
 import java.util.List;
 

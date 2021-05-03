@@ -1,6 +1,6 @@
-package com.minsait.template.home;
+package com.minsait.template.ui.home;
 
-import com.minsait.template.api.model.Element;
+import com.minsait.template.data.model.Element;
 
 /**
  * Created by Alejandro Sánchez

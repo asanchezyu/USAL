@@ -1,4 +1,4 @@
-package com.minsait.template.detail;
+package com.minsait.template.ui.detail;
 
 import android.view.LayoutInflater;
 import android.view.View;
