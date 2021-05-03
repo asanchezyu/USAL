@@ -11,9 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minsait.template.R;
 import com.minsait.template.data.model.Element;
+import com.minsait.template.presentation.detail.DetailPresenter;
+import com.minsait.template.presentation.detail.DetailPresenterImpl;
+import com.minsait.template.presentation.detail.DetailView;
 import com.squareup.picasso.Picasso;
 
-public class DetailActivity extends AppCompatActivity {
+import java.util.List;
+
+public class DetailActivity extends AppCompatActivity implements DetailView {
 
     private final static String K_ELEMENT = "com.minsait.template.ui.detail.DetailActivity:ELEMENT";
 
@@ -26,6 +31,8 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView ivProfile;
 
     private RecyclerView rvFoodPairing;
+
+    private DetailPresenter detailPresenter;
 
     public static final Intent getLaunchIntent(Activity activity, Element element){
 
@@ -46,13 +53,22 @@ public class DetailActivity extends AppCompatActivity {
 
         initViews();
 
+        initPresenter();
+
         element = (Element) getIntent().getSerializableExtra(K_ELEMENT);
 
-        initData(element);
+        detailPresenter.setElement(element);
 
     }
 
+    private void initPresenter() {
+         detailPresenter = new DetailPresenterImpl();
+
+         detailPresenter.setView(this);
+    }
+
     private void initViews() {
+
         tvDescription = findViewById(R.id.tvDescription);
 
         tvTitle = findViewById(R.id.tvTitle);
@@ -60,17 +76,34 @@ public class DetailActivity extends AppCompatActivity {
         ivProfile = findViewById(R.id.ivProfile);
 
         rvFoodPairing = findViewById(R.id.rvFoodPairing);
+
     }
 
-    private void initData(Element element) {
-        Picasso.get().load(element.imageUrl).into(ivProfile);
+    @Override
+    public void setTitle(String title) {
 
-        tvTitle.setText(element.name);
+        tvTitle.setText(title);
+
+    }
+
+    @Override
+    public void setImageUrl(String url) {
+
+        Picasso.get().load(url).into(ivProfile);
+
+    }
+
+    @Override
+    public void setDescription(String description) {
 
         tvDescription.setText(element.description);
+
+    }
+
+    @Override
+    public void setFoodPairing(List<String> foodPairings) {
 
         rvFoodPairing.setAdapter(new FoodPairingAdapter(element.foodPairing));
 
     }
-
 }
