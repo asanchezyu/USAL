@@ -66,7 +66,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     private void initInjection(){
 
-        getActivityComponent().detailSubcomponentBuilder().detailModule(new DetailModule()).build();
+        getActivityComponent().detailSubcomponentBuilder().detailModule(new DetailModule()).build().inject(this);
 
         detailPresenter.setView(this);
 
