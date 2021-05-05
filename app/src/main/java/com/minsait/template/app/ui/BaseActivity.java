@@ -1,5 +1,9 @@
 package com.minsait.template.app.ui;
 
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.minsait.template.injection.base.activity.ActivityComponent;
@@ -25,6 +29,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         return activityComponent;
 
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    protected void lockScreenOrientation() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
 }

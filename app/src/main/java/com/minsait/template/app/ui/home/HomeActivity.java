@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import com.minsait.template.app.data.model.Element;
 import com.minsait.template.app.presentation.home.HomePresenter;
 import com.minsait.template.app.presentation.home.HomeView;
 import com.minsait.template.app.ui.BaseActivity;
+import com.minsait.template.app.ui.spinner.CSpinnerDialogImpl;
 import com.minsait.template.injection.subcomponents.home.HomeModule;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class HomeActivity extends BaseActivity implements HomeView {
     private Button btRequest;
 
     private ElementsAdapter elementsAdapter;
+
+    private CSpinnerDialogImpl customSpinnerDialog;
 
     @Inject
     HomePresenter homePresenter;
@@ -73,6 +77,8 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
         rvElements.setAdapter(elementsAdapter);
 
+        customSpinnerDialog = new CSpinnerDialogImpl(this);
+
     }
 
     private void initListeners() {
@@ -97,5 +103,39 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
         elementsAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void showSpinner() {
+        customSpinnerDialog.show();
+    }
+
+    @Override
+    public void hideSpinner() {
+        if (customSpinnerDialog != null && customSpinnerDialog.isShowing()) {
+            customSpinnerDialog.dismiss();
+        }
+    }
+
+    @Override
+    public boolean isSpinnerShowing() {
+        return customSpinnerDialog.isShowing();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+
+        outState.putParcelableArrayList("elements", elementsAdapter.getElements());
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        ArrayList<Element> data = savedInstanceState.getParcelableArrayList("elements");
+        if( data != null ){
+            setElements(data);
+        }
     }
 }

@@ -58,7 +58,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
         initInjection();
 
-        element = (Element) getIntent().getSerializableExtra(K_ELEMENT);
+        element = (Element) getIntent().getParcelableExtra(K_ELEMENT);
 
         detailPresenter.setElement(element);
 

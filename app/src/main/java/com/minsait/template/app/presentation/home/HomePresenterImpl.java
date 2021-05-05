@@ -39,9 +39,13 @@ public class HomePresenterImpl implements HomePresenter {
     @Override
     public void makeElementsRequest() {
 
+        view.showSpinner();
+
       getElementsUseCase.execute(new ElementsListener() {
           @Override
           public void onElementsReceived(List<Element> elements) {
+
+              view.hideSpinner();
 
               if( elements!= null){
 

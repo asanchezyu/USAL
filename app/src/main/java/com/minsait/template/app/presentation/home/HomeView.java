@@ -11,4 +11,9 @@ public interface HomeView {
 
     void setElements(List<Element> elements);
 
+    void showSpinner();
+
+    void hideSpinner();
+
+    boolean isSpinnerShowing();
 }

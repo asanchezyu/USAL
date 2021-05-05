@@ -12,6 +12,7 @@ import com.minsait.template.R;
 import com.minsait.template.app.data.model.Element;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -38,6 +39,10 @@ public final class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.
 
         elements.addAll(newElements);
 
+    }
+
+    public ArrayList<Element> getElements() {
+        return (ArrayList<Element>) elements;
     }
 
     @NonNull
